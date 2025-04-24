@@ -11,10 +11,9 @@
         <img class="logo" src="https://mospolytech.ru/local/templates/main/dist/img/logos/mospolytech-logo-white.svg" alt="">
         <h1>2.1.Домашняя работа: Hello, World!</h1>
     </header>
-
     <main>
         <div class="greeting">
-            <?php 
+            <?php
                 $hour = date('H');
                 $greeting = ($hour < 12) ? 'Доброе утро' : (($hour < 18) ? 'Добрый день' : 'Добрый вечер');
                 echo "<h2>$greeting, Мир!</h2>";
