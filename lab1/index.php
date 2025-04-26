@@ -73,25 +73,21 @@ echo "<table border='1'>
         <th>Результат</th>
     </tr>";
 
-// Строгое равенство между числом и строкой
 echo "<tr>
         <td>\$a === \$b</td>
         <td>" . var_export($a === $b, true) . "</td>
     </tr>";
 
-// Строгое равенство между строками
 echo "<tr>
         <td>\$b === \$d</td>
         <td>" . var_export($b === $d, true) . "</td>
     </tr>";
 
-// Равенство между числом и строкой с буквой
 echo "<tr>
         <td>\$a == \$d</td>
         <td>" . var_export($a == $d, true) . "</td>
     </tr>";
 
-// Больше или равно
 echo "<tr>
         <td>\$a >= \$d</td>
         <td>" . var_export($a >= $d, true) . "</td>
