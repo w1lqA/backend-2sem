@@ -24,6 +24,7 @@ function getViewer($sort = 'default', $page = 1) {
 
     $html = '<table>';
     $html .= '<tr>
+        <th>ID</th>
         <th>Фамилия</th>
         <th>Имя</th>
         <th>Отчество</th>
@@ -37,6 +38,7 @@ function getViewer($sort = 'default', $page = 1) {
 
     foreach ($contacts as $contact) {
         $html .= '<tr>';
+        $html .= '<td>' . htmlspecialchars($contact['id']) . '</td>';
         $html .= '<td>' . htmlspecialchars($contact['lastname']) . '</td>';
         $html .= '<td>' . htmlspecialchars($contact['firstname']) . '</td>';
         $html .= '<td>' . htmlspecialchars($contact['middlename']) . '</td>';

@@ -2,6 +2,8 @@
 include_once 'menu.php';
 include_once 'viewer.php';
 include_once 'add.php';
+include_once 'edit.php';
+include_once 'delete.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'view';
 $content = '';
@@ -12,9 +14,14 @@ switch ($page) {
         $p = isset($_GET['p']) ? (int)$_GET['p'] : 1;
         $content = getViewer($sort, $p);
         break;
-            
     case 'add':
         $content = getAddForm();
+        break;
+    case 'edit':
+        $content = getEditForm();
+        break;
+    case 'delete':
+        $content = getDeleteForm();
         break;
 
     default:

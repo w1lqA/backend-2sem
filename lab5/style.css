@@ -57,7 +57,12 @@ header {
 .submenu a:hover{
     background-color: var(--accent);
 }
+.edit-button-td {
+    text-align: center;
+}
 
+.contact-list tr.active,
+.contact-list tr.active a,
 .menu a.active,
 .submenu a.active {
     color: var(--bg);
@@ -211,6 +216,8 @@ form {
     padding: 2rem;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
 }
 
 form button {
@@ -243,4 +250,3 @@ footer {
     bottom: 0;
     left: 0;
 }
-
