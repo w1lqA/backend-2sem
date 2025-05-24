@@ -9,7 +9,6 @@ function getAddForm() {
             $db = getDBConnection();
             $stmt = $db->prepare("INSERT INTO contacts (lastname, firstname, middlename, gender, birthdate, phone, address, email, comment) 
                                   VALUES (:lastname, :firstname, :middlename, :gender, :birthdate, :phone, :address, :email, :comment)");
-            
             $stmt->execute([
                 ':lastname' => $_POST['lastname'],
                 ':firstname' => $_POST['firstname'],
