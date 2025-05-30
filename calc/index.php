@@ -1,7 +1,32 @@
 <?php
-include 'eval.php';
+function customEval($expression) {
+    $expression = preg_replace('/\s+/', '', $expression);
+    
+    if (!preg_match('/^[\d+\-*\/()\.]+$/', $expression)) {
+        return "Ошибка: недопустимые символы";
+    }
+    
+    while (preg_match('/(\d+\.?\d*)([\/*])(\d+\.?\d*)/', $expression, $matches)) {
+        $a = $matches[1];
+        $op = $matches[2];
+        $b = $matches[3];
+        
+        $result = ($op == '*') ? $a * $b : $a / $b;
+        $expression = str_replace($matches[0], $result, $expression);
+    }
+    
+    while (preg_match('/(\d+\.?\d*)([+-])(\d+\.?\d*)/', $expression, $matches)) {
+        $a = $matches[1];
+        $op = $matches[2];
+        $b = $matches[3];
+        
+        $result = ($op == '+') ? $a + $b : $a - $b;
+        $expression = str_replace($matches[0], $result, $expression);
+    }
+    
+    return $expression;
+}
 
-$expressionFile = 'expression.txt';
 $num = "";
 
 if (isset($_POST['num'])) {
@@ -17,12 +42,13 @@ if (isset($_POST['op'])) {
 }
 
 if (isset($_POST['equal'])) {
-    $num = evaluateExpressionWithTrig($num);
+    $num = customEval($num);
 }
 
 if (isset($_POST['equal_from_file'])) {
-    if (file_exists($expressionFile)) {
-        $expr = file_get_contents($expressionFile);
+    if (file_exists('expression.txt')) {
+        $expr = file_get_contents('expression.txt');
+        include 'eval.php'; 
         $num = evaluateExpressionWithTrig($expr);
     } else {
         $num = "Ошибка: файл не найден";
