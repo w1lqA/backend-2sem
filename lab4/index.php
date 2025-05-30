@@ -15,7 +15,7 @@ echo "№1 <br>";
 <?php
 $str = isset($_POST['number']) ? $_POST['number'] : '';
 
-if (preg_match('/^\d{1,12}$/', $str)) {
+if (preg_match('/^\d{1,12}$/', $str)) { 
     echo "Строка является числом, длиной до 12 цифр.";
 } else {
     echo "Строка не является числом, длиной до 12 цифр.";
@@ -28,12 +28,11 @@ echo "№26 <br>";
 // 3 буквы a, затем любая буква, но не b и поменяйте 3 буквы a на знак '!'. 
 // То есть из, к примеру, 'aaaw' нужно сделать '!w', а 'aaab' не поменяется.
 
-$str = 'aaae aaaf';
+$str = 'aaae aaaf aaab';
 
-$str = preg_replace('/aaa/', '!', $str);
+$str = preg_replace('/aaa(?!b)/', '!', $str);
 
 echo $str;
-
 
 echo "<br><br>";
 echo "№38 <br>";
@@ -61,7 +60,6 @@ if (preg_match_all('/2\+{0,3}3/', $str, $matches)) {
     echo "Строки не найдены";
 }
 
-
 echo "<br><br>";
 echo "№43 <br>";
 // На экранировку Дана строка '*+ *q+ *qq+ *qqq+ *qqq qqq+'. 
@@ -74,7 +72,6 @@ if (preg_match_all('/\*q{1,3}\+/',$str,$matches)) {
 } else {
     echo "Строки не найдены";
 }
-
 
 echo "<br><br>";
 echo "№60 <br>";
