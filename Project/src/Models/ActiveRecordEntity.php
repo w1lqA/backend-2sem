@@ -111,4 +111,13 @@ abstract class ActiveRecordEntity
         $this->id = null;
     }
     abstract protected static function getTableName(): string;
+
+    public static function findByColumn(string $columnName, $value): array
+    {
+        $db = \src\Services\Db::getInstance();
+        $sql = 'SELECT * FROM `' . static::getTableName() . '` WHERE `' . $columnName . '` = :value ORDER BY created_at DESC';
+        $result = $db->query($sql, [':value' => $value], static::class);
+        return $result ?: [];
+    }
+    
 }

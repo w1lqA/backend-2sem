@@ -35,5 +35,21 @@ return [
         [src\Controllers\ArticleController::class, 'store']
     ],
     
+    '~^article/(\d+)/comments$~' => [
+        [src\Middleware\AuthMiddleware::class, 'handle'],
+        [src\Controllers\CommentController::class, 'store']
+    ],
+
+    '~^comments/(\d+)/edit$~' => [
+        [src\Middleware\AuthMiddleware::class, 'handle'],
+        [src\Controllers\CommentController::class, 'edit']
+    ],
+
+    '~^comments/(\d+)/update$~' => [
+        [src\Middleware\AuthMiddleware::class, 'handle'],
+        [src\Controllers\CommentController::class, 'update']
+    ],
+
+    
     '~.*~' => [src\Controllers\MainController::class, 'notFound']
 ];

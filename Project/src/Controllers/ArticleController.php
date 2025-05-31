@@ -3,6 +3,7 @@
 namespace src\Controllers;
 use src\View\View;
 use src\Models\Articles\Article;
+use src\Models\Comments\Comment;
 
 class ArticleController
 {
@@ -24,12 +25,16 @@ class ArticleController
 
     public function show($id){
         $article = Article::getById($id);
-            if ($article == []) 
-        {
+        if ($article === null) {
             $this->view->renderHtml('error/404', [], 404);
             return;
         }
-        $this->view->renderHtml('article/show', ['article'=>$article]);
+    
+        $comments = Comment::findByColumn('article_id', $id);
+        $this->view->renderHtml('article/show', [
+            'article' => $article,
+            'comments' => $comments
+        ]);
     }
 
     public function edit($id){
