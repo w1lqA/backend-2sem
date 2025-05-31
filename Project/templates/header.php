@@ -32,7 +32,7 @@
   </style>
 </head>
 <body>
-  <header class="mb-4">
+<header class="mb-4">
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
       <div class="container">
         <a class="navbar-brand text-primary" href="<?=$_SERVER['SCRIPT_NAME'];?>">Articles</a>
@@ -42,15 +42,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-center">
             <li class="nav-item">
-            <a class="nav-link" href="<?= dirname($_SERVER['SCRIPT_NAME']) ?>/hello/Victor">Hello</a>
+              <a class="nav-link" href="<?=dirname($_SERVER['SCRIPT_NAME'])?>/hello/Victor">Hello</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?=dirname($_SERVER['SCRIPT_NAME'])?>/article/create">Create Article</a>
-            </li>
+            <?php if (isset($_COOKIE['authToken'])): ?>
+              <li class="nav-item">
+                <a class="nav-link" href="<?=dirname($_SERVER['SCRIPT_NAME'])?>/article/create">Create Article</a>
+              </li>
+            <?php endif; ?>
           </ul>
-          <form class="d-flex justify-content-center">
-            <button class="btn btn-outline-primary search-btn" type="submit">Logout</button>
-          </form>
+          <?php if (isset($_COOKIE['authToken'])): ?>
+            <a href="<?=dirname($_SERVER['SCRIPT_NAME'])?>/logout" class="btn btn-outline-danger">Logout</a>
+          <?php else: ?>
+            <a href="<?=dirname($_SERVER['SCRIPT_NAME'])?>/login" class="btn btn-outline-primary">Login</a>
+          <?php endif; ?>
         </div>
       </div>
     </nav>

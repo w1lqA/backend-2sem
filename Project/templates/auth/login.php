@@ -8,14 +8,11 @@
             <?php endif; ?>
             
             <h2>Вход</h2>
-            <form action="/login" method="post">
+            <form action="<?=dirname($_SERVER['SCRIPT_NAME'])?>/login" method="post">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Пароль</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <label for="nickname" class="form-label">Имя пользователя</label>
+                    <input type="text" class="form-control" id="nickname" name="nickname" required>
+
                 </div>
                 <button type="submit" class="btn btn-primary">Войти</button>
             </form>
