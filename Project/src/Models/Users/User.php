@@ -30,26 +30,37 @@ class User extends ActiveRecordEntity
     
     public static function login(array $loginData): self
     {
-        if (empty($loginData['nickname'])) {
-            throw new InvalidArgumentException('Nickname is required');
+        if (empty($loginData['nickname']) || empty($loginData['password'])) {
+            throw new \src\Exceptions\InvalidArgumentException('Поля не должны быть пустыми');
         }
     
-        $user = static::findOneByColumn('nickname', $loginData['nickname']);
+        $user = self::findOneByColumn('nickname', $loginData['nickname']);
+    
         if ($user === null) {
-            throw new InvalidArgumentException('User not found');
+            throw new \src\Exceptions\InvalidArgumentException('Пользователь не найден');
         }
     
-        $user->generateAuthToken();
-        $user->save();
+        if (!password_verify($loginData['password'], $user->passwordHash)) {
+            throw new \src\Exceptions\InvalidArgumentException('Неверный пароль');
+        }
+    
+        $user->refreshAuthToken();
     
         return $user;
     }
+    
     
     public function generateAuthToken(): void
     {
         $this->authToken = sha1(random_bytes(100)) . sha1(random_bytes(100));
     }
 
+    public function refreshAuthToken(): void
+    {
+        $this->generateAuthToken(); 
+        $this->save(); 
+    }
+    
     public static function findOneByColumn(string $columnName, $value): ?self
     {
         $db = \src\Services\Db::getInstance();

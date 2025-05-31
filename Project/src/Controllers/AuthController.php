@@ -19,9 +19,14 @@ class AuthController
     {
         if (!empty($_POST)) {
             try {
-                $user = User::login(['nickname' => $_POST['nickname']]);
+                $user = User::login([
+                    'nickname' => $_POST['nickname'] ?? '',
+                    'password' => $_POST['password'] ?? '',
+                ]);
                 
                 setcookie('authToken', $user->getAuthToken(), time() + 3600 * 24 * 30, '/');
+                session_start();
+                $_SESSION['user_id'] = $user->getId(); 
                 header('Location: ' . dirname($_SERVER['SCRIPT_NAME']));
                 exit();
             } catch (InvalidArgumentException $e) {

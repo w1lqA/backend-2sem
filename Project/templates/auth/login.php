@@ -13,6 +13,9 @@
                     <label for="nickname" class="form-label">Имя пользователя</label>
                     <input type="text" class="form-control" id="nickname" name="nickname" required>
 
+                    <label for="password" class="form-label">Пароль:</label>
+                    <input type="password" name="password" class="form-control" required>
+
                 </div>
                 <button type="submit" class="btn btn-primary">Войти</button>
             </form>

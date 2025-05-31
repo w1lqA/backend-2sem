@@ -69,23 +69,30 @@ class ArticleController
         $this->view->renderHtml('article/create');
     }
     
-
     public function store(){
-        $article = new Article;
-        $article->setTitle($_POST['title']);
-        $article->setText($_POST['text']);
-        
-        $user = \src\Models\Users\User::getById(1);
+        session_start();
+    
+        $userId = $_SESSION['user_id'] ?? null;
+        if ($userId === null) {
+            header('Location: ' . $this->basePath . '/auth/login');
+            exit;
+        }
+    
+        $user = \src\Models\Users\User::getById($userId);
         if (!$user) {
             throw new \Exception('Пользователь не найден');
         }
-        
-        $article->setAuthor($user);
+    
+        $article = new Article();
+        $article->setTitle($_POST['title']);
+        $article->setText($_POST['text']);
+        $article->setAuthor($user); 
         $article->save();
-        
+    
         header('Location: ' . $this->basePath . '/');
         exit;
     }
+    
 
     public function delete(int $id){
         $article = Article::getById($id);
